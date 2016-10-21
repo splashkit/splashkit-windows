@@ -10,8 +10,9 @@
 #define __random_h
 
 #include <string>
+#include <vector>
 using std::string;
-
+using std::vector;
 
 float rnd();
 int rnd(int ubound);

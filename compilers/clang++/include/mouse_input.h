@@ -8,11 +8,13 @@
 
 #ifndef __mouse_input_h
 #define __mouse_input_h
+
+#include "mouse_input.h"
 #include "types.h"
-
 #include <string>
+#include <vector>
 using std::string;
-
+using std::vector;
 
 typedef enum {
     NO_BUTTON,

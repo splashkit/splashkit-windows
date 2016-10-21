@@ -10,8 +10,9 @@
 #define __audio_h
 
 #include <string>
+#include <vector>
 using std::string;
-
+using std::vector;
 
 bool audio_ready();
 void close_audio();

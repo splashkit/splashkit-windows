@@ -9,9 +9,11 @@
 #ifndef __database_h
 #define __database_h
 
+#include "database.h"
 #include <string>
+#include <vector>
 using std::string;
-
+using std::vector;
 
 struct _database_data;
 typedef struct _database_data *database;

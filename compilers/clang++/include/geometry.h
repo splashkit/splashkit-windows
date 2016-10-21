@@ -10,8 +10,9 @@
 #define __geometry_h
 
 #include <string>
+#include <vector>
 using std::string;
-
+using std::vector;
 
 float cosine(float degrees);
 float sine(float degrees);

@@ -8,12 +8,14 @@
 
 #ifndef __sprites_h
 #define __sprites_h
+
 #include "matrix_2d.h"
+#include "sprites.h"
 #include "types.h"
-
 #include <string>
+#include <vector>
 using std::string;
-
+using std::vector;
 
 struct _sprite_data;
 typedef struct _sprite_data *sprite;
@@ -43,7 +45,7 @@ sprite create_sprite(const string &bitmap_name, const string &animation_name);
 void create_sprite_pack(const string &name);
 string current_sprite_pack();
 void draw_all_sprites();
-void draw_sprite(sprite s, const point_2d &position);
+void draw_sprite(sprite s, const vector_2d &offset);
 void draw_sprite(sprite s);
 void draw_sprite(sprite s, float x_offset, float y_offset);
 void free_all_sprites();
