@@ -9,9 +9,11 @@
 #ifndef __types_h
 #define __types_h
 
+#include "types.h"
 #include <string>
+#include <vector>
 using std::string;
-
+using std::vector;
 
 struct _animation_data;
 typedef struct _animation_data *animation;
@@ -29,16 +31,25 @@ typedef enum {
     DRAW_DEFAULT
 } drawing_dest;
 typedef enum {
-    ALIGN_LEFT = 1,
-    ALIGN_CENTER = 2,
-    ALIGN_RIGHT = 4
-} font_alignment;
-typedef enum {
     NORMAL_FONT = 0,
     BOLD_FONT = 1,
     ITALIC_FONT = 2,
     UNDERLINE_FONT = 4
 } font_style;
+typedef enum {
+    HTTP_STATUS_OK = 200,
+    HTTP_STATUS_CREATED = 201,
+    HTTP_STATUS_NO_CONTENT = 204,
+    HTTP_STATUS_BAD_REQUEST = 400,
+    HTTP_STATUS_UNAUTHORIZED = 401,
+    HTTP_STATUS_FORBIDDEN = 403,
+    HTTP_STATUS_NOT_FOUND = 404,
+    HTTP_STATUS_METHOD_NOT_ALLOWED = 405,
+    HTTP_STATUS_REQUEST_TIMEOUT = 408,
+    HTTP_STATUS_INTERNAL_SERVER_ERROR = 500,
+    HTTP_STATUS_NOT_IMPLEMENTED = 501,
+    HTTP_STATUS_SERVICE_UNAVAILABLE = 503
+} http_status_code;
 typedef struct {
     float x;
     float y;
@@ -88,6 +99,5 @@ typedef struct {
     double x;
     double y;
 } vector_2d;
-typedef void (free_notifier)(void *pointer);
 
 #endif /* __types_h */

@@ -9,9 +9,11 @@
 #ifndef __timers_h
 #define __timers_h
 
+#include "timers.h"
 #include <string>
+#include <vector>
 using std::string;
-
+using std::vector;
 
 struct _timer_data;
 typedef struct _timer_data *timer;
@@ -19,7 +21,6 @@ timer create_timer(string name);
 void free_all_timers();
 void free_timer(timer to_free);
 bool has_timer(string name);
-bool has_timer(timer t);
 void pause_timer(string name);
 void pause_timer(timer to_pause);
 void reset_timer(string name);

@@ -8,19 +8,24 @@
 
 #ifndef __vector_2d_h
 #define __vector_2d_h
+
 #include "types.h"
-
 #include <string>
+#include <vector>
 using std::string;
+using std::vector;
 
-
+float angle_between(const vector_2d &v1, const vector_2d &v2);
 float dot_product(const vector_2d &v1, const vector_2d &v2);
 bool is_zero_vector(const vector_2d &v);
+bool ray_intersection_point(const point_2d &from_pt, const vector_2d &heading, const line &l, point_2d &pt);
 vector_2d unit_vector(const vector_2d &v);
 vector_2d vector_add(const vector_2d &v1, const vector_2d &v2);
 float vector_angle(const vector_2d v);
 vector_2d vector_from_angle(float angle, float magnitude);
 vector_2d vector_from_line(const line &l);
+vector_2d vector_from_point_to_rect(const point_2d &pt, const rectangle &rect);
+bool vector_in_rect(const vector_2d &v, const rectangle &rect);
 vector_2d vector_invert(const vector_2d &v);
 vector_2d vector_limit(const vector_2d &v, float limit);
 float vector_magnitude(const vector_2d &v);
@@ -38,5 +43,6 @@ vector_2d vector_to(const point_2d &p1);
 vector_2d vector_to(float x, float y);
 string vector_to_string(const vector_2d &v);
 bool vectors_equal(const vector_2d &v1, const vector_2d v2);
+bool vectors_not_equal(const vector_2d &v1, const vector_2d v2);
 
 #endif /* __vector_2d_h */

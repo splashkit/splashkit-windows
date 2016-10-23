@@ -8,10 +8,12 @@
 
 #ifndef __color_h
 #define __color_h
-#include "types.h"
 
+#include "types.h"
 #include <string>
+#include <vector>
 using std::string;
+using std::vector;
 
 #define COLOR_ALICE_BLUE color_alice_blue()
 #define COLOR_ANTIQUE_WHITE color_antique_white()
@@ -65,9 +67,9 @@ using std::string;
 #define COLOR_GOLD color_gold()
 #define COLOR_GOLDENROD color_goldenrod()
 #define COLOR_GRAY color_gray()
+#define COLOR_GRAY color_gray()
 #define COLOR_GREEN color_green()
 #define COLOR_GREEN_YELLOW color_green_yellow()
-#define COLOR_GREY color_grey()
 #define COLOR_HONEYDEW color_honeydew()
 #define COLOR_HOT_PINK color_hot_pink()
 #define COLOR_INDIAN_RED color_indian_red()
@@ -83,8 +85,8 @@ using std::string;
 #define COLOR_LIGHT_CYAN color_light_cyan()
 #define COLOR_LIGHT_GOLDENROD_YELLOW color_light_goldenrod_yellow()
 #define COLOR_LIGHT_GRAY color_light_gray()
+#define COLOR_LIGHT_GRAY color_light_gray()
 #define COLOR_LIGHT_GREEN color_light_green()
-#define COLOR_LIGHT_GREY color_light_grey()
 #define COLOR_LIGHT_PINK color_light_pink()
 #define COLOR_LIGHT_SALMON color_light_salmon()
 #define COLOR_LIGHT_SEA_GREEN color_light_sea_green()
@@ -158,8 +160,9 @@ using std::string;
 #define COLOR_WHITE_SMOKE color_white_smoke()
 #define COLOR_YELLOW color_yellow()
 #define COLOR_YELLOW_GREEN color_yellow_green()
-
-unsigned char alpha_of(color c);
+int alpha_of(color c);
+int blue_of(color c);
+float brightness_of(color c);
 color color_alice_blue();
 color color_antique_white();
 color color_aqua();
@@ -214,7 +217,6 @@ color color_goldenrod();
 color color_gray();
 color color_green();
 color color_green_yellow();
-color color_grey();
 color color_honeydew();
 color color_hot_pink();
 color color_indian_red();
@@ -231,7 +233,6 @@ color color_light_cyan();
 color color_light_goldenrod_yellow();
 color color_light_gray();
 color color_light_green();
-color color_light_grey();
 color color_light_pink();
 color color_light_salmon();
 color color_light_sea_green();
@@ -306,7 +307,17 @@ color color_white();
 color color_white_smoke();
 color color_yellow();
 color color_yellow_green();
+int green_of(color c);
+color hsb_color(float hue, float saturation, float brightness);
+float hue_of(color c);
+color random_color();
+color random_rgb_color(int alpha);
+int red_of(color c);
+color rgb_color(float red, float green, float blue);
+color rgb_color(int red, int green, int blue);
 color rgba_color(float red, float green, float blue, float alpha);
+color rgba_color(int red, int green, int blue, int alpha);
+float saturation_of(color c);
 color string_to_color(string str);
 
 #endif /* __color_h */

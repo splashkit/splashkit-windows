@@ -8,12 +8,13 @@
 
 #ifndef __camera_h
 #define __camera_h
+
 #include "sprites.h"
 #include "types.h"
-
 #include <string>
+#include <vector>
 using std::string;
-
+using std::vector;
 
 point_2d camera_position();
 float camera_x();

@@ -40,6 +40,7 @@
 #include "resources.h"
 #include "sound.h"
 #include "sprites.h"
+#include "terminal.h"
 #include "text.h"
 #include "text_input.h"
 #include "timers.h"

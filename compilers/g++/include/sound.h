@@ -9,9 +9,11 @@
 #ifndef __sound_h
 #define __sound_h
 
+#include "sound.h"
 #include <string>
+#include <vector>
 using std::string;
-
+using std::vector;
 
 struct _sound_effect_data;
 typedef struct _sound_effect_data *sound_effect;
