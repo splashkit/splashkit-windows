@@ -13,7 +13,7 @@ const _getCompiler = function (compilerName) {
       compilers = require(`${os.homedir()}/.splashkit/splashkit-windows/compilers`)
     }
   } catch (error) {
-    logger.debug('OS Not Recognised')
+    logger.error(error.message, 'OS not recognised')
     return // Return null if you can't find the directory.
   }
   return compilers.get(compilerName)
