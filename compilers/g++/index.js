@@ -7,7 +7,7 @@ execute = function (argv, callback) {
   const cppBuild = `${home}/.splashkit/compilers/g++/include`
   const includeFolder = `${home}/.splashkit/include`
   const sklibs = {
-    static: `${home}/.splashkit//compilers/g++/lib`,
+    static: `${home}/.splashkit/compilers/g++/lib`,
     dynamic: `${home}/.splashkit/lib`
   }
 
