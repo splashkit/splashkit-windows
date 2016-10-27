@@ -13,9 +13,9 @@ execute = function (argv, callback) {
 
   let flags
 
-  if (process.env.MSYSTEM == MINGW32) {
+  if (process.env.MSYSTEM == 'MINGW32') {
     flags = "-static-libstdc++ -static-libgcc -lSplashKitCPP-win32 -llibSplashKit-win32 -Wl,-Bstatic -lstdc++ -lpthread"
-  } else if (process.env.MSYSTEM == MINGW64) {
+  } else if (process.env.MSYSTEM == 'MINGW64') {
     flags = "-static-libstdc++ -static-libgcc -lSplashKitCPP-win64 -llibSplashKit-win64 -Wl,-Bstatic -lstdc++ -lpthread"
   } else {
     console.log("Can''t determine envioronment.")
