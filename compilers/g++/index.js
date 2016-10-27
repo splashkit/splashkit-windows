@@ -1,29 +1,38 @@
 const utils = require('../../utils')
 const {homedir} = require('os')
 
+const home = process.env.HOME
+
 execute = function (argv, callback) {
-  const cppBuild = `${homedir()}/.splashkit/splashkit-windows/compilers/g++`
+  const cppBuild = `${home}/.splashkit/splashkit-windows/compilers/g++/include`
+  const includeFolder = `${home}/.splashkit/splashkit-windows/include`
   const sklibs = {
-    static: `${homedir()}/.splashkit/splashkit-windows/compilers/g++/lib`,
-    dynamic: `${homedir()}/.splashkit/splashkit-windows/lib`
+    static: `${home}/.splashkit/splashkit-windows/compilers/g++/lib`,
+    dynamic: `${home}/.splashkit/splashkit-windows/lib`
+  }
+
+  let flags
+
+  if (process.env.MSYSTEM == MINGW32) {
+    flags = "-static-libstdc++ -static-libgcc -lSplashKitCPP-win32 -llibSplashKit-win32 -Wl,-Bstatic -lstdc++ -lpthread"
+  } else if (process.env.MSYSTEM == MINGW64) {
+    flags = "-static-libstdc++ -static-libgcc -lSplashKitCPP-win64 -llibSplashKit-win64 -Wl,-Bstatic -lstdc++ -lpthread"
+  } else {
+    console.log("Can''t determine envioronment.")
   }
 
   const userArgs = utils.argsToString(argv['original_string'])
-//   const clangArgs = `-L${sklibs.dynamic} -lSplashKit -L${sklibs.static} -lSplashKitCpp -I ${cppBuild}/include -rpath @loader_path -rpath ${sklibs.dynamic} -rpath /usr/local/lib`
-  const clangArgs = `-I ${cppBuild} -I ${`${cppBuild}/include`} -L ${sklib.dynamic} -L ${sklibs.static}  -static-libstdc++ -static-libgcc -lSplashKitCPP-win32 -llibSplashKit-win32 -Wl,-Bstatic -lstdc++ -lpthread`
+  const clangArgs = `-I ${includeFolder} -I ${cppBuild} -L ${sklib.dynamic} -L ${sklibs.static}`
 
-  utils.runCommand(`g++ ${clangArgs} ${userArgs}`, function (err, data) {
-      if (err) {
-          callback(err)
-      } else {
-          callback()
-      }
+  utils.runCommand(`g++ ${clangArgs} ${userArgs} ${flags}`, function (err, data) {
+    if (err) {
+      callback(err)
+    } else {
+      callback()
+    }
   })
 }
 
  module.exports = {
   execute: execute
 }
-
-// g++ -I {include} -I {clang++/include} -L {lib} -L {g++/lib}  -static-libstdc++ -static-libgcc cave_escape_1.cpp -lSplashKitCPP-win32 -llibSplashKit-win32 -Wl,-Bstatic -lstdc++ -lpthread
-// g++ -I {include} -I {clang++/include} -L {lib} -L {g++/lib}  -static-libstdc++ -static-libgcc cave_escape_1.cpp -lSplashKitCPP-win32 -llibSplashKit-win32 -Wl,-Bstatic -lstdc++ -lpthread
