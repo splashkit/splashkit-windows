@@ -22,7 +22,7 @@ execute = function (argv, callback) {
   }
 
   const userArgs = utils.argsToString(argv['original_string'])
-  const clangArgs = `-I ${includeFolder} -I ${cppBuild} -L ${sklib.dynamic} -L ${sklibs.static}`
+  const clangArgs = `-I ${includeFolder} -I ${cppBuild} -L ${sklibs.dynamic} -L ${sklibs.static}`
 
   utils.runCommand(`g++ ${clangArgs} ${userArgs} ${flags}`, function (err, data) {
     if (err) {
