@@ -1,5 +1,4 @@
 const utils = require('../../utils')
-const {homedir} = require('os')
 
 const home = process.env.HOME
 
