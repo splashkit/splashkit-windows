@@ -1,10 +1,7 @@
-/*
- * SplashKit Line Geometry
- *
- * This file is generated from the SplashKit source.
- * Modifying it will cause failures.
- *
- */
+//
+// SplashKit Generated Line Geometry C++ Code
+// DO NOT MODIFY
+//
 
 #ifndef __line_geometry_h
 #define __line_geometry_h
@@ -17,7 +14,7 @@ using std::vector;
 
 point_2d closest_point_on_line(const point_2d from_pt, const line &l);
 point_2d closest_point_on_lines(const point_2d from_pt, const vector<line> &lines, int &line_idx);
-line line_from(const point_2d &start, const point_2d &end);
+line line_from(const point_2d &start, const point_2d &end_pt);
 line line_from(const point_2d &start, const vector_2d &offset);
 line line_from(const vector_2d &v);
 line line_from(float x1, float y1, float x2, float y2);

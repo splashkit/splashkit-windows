@@ -1,10 +1,7 @@
-/*
- * SplashKit Keyboard Input
- *
- * This file is generated from the SplashKit source.
- * Modifying it will cause failures.
- *
- */
+//
+// SplashKit Generated Keyboard Input C++ Code
+// DO NOT MODIFY
+//
 
 #ifndef __keyboard_input_h
 #define __keyboard_input_h
@@ -138,21 +135,15 @@ typedef enum {
     LEFT_CTRL_KEY = 306,
     RIGHT_ALT_KEY = 307,
     LEFT_ALT_KEY = 308,
-    RIGHT_OPTION_KEY = 307,
-    LEFT_OPTION_KEY = 308,
     LEFT_SUPER_KEY = 311,
     RIGHT_SUPER_KEY = 312,
-    LEFT_WINDOWS_KEY = 311,
-    RIGHT_WINDOWS_KEY = 312,
-    LEFT_COMMAND_KEY = 311,
-    RIGHT_COMMAND_KEY = 312,
     MODE_KEY = 313,
     HELP_KEY = 315,
     SYS_REQ_KEY = 317,
     MENU_KEY = 319,
     POWER_KEY = 320
 } key_code;
-typedef void (key_callback)(key_code code);
+typedef void (key_callback)(int code);
 bool any_key_pressed();
 void deregister_callback_on_key_down(key_callback *callback);
 void deregister_callback_on_key_typed(key_callback *callback);

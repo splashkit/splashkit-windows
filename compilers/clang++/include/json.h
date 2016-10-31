@@ -1,10 +1,7 @@
-/*
- * SplashKit Json
- *
- * This file is generated from the SplashKit source.
- * Modifying it will cause failures.
- *
- */
+//
+// SplashKit Generated Json C++ Code
+// DO NOT MODIFY
+//
 
 #ifndef __json_h
 #define __json_h
@@ -45,7 +42,7 @@ void json_set_bool(json j, string key, bool value);
 void json_set_number(json j, string key, int value);
 void json_set_number(json j, string key, double value);
 void json_set_number(json j, string key, float value);
-void json_set_object(json j, string key, json object);
+void json_set_object(json j, string key, json obj);
 void json_set_string(json j, string key, string value);
 color json_to_color(json j);
 void json_to_file(json j, const string &filename);
