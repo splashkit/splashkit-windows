@@ -15,6 +15,9 @@ execute = function (argv, callback) {
 
   if (process.env.MSYSTEM == 'MINGW32') {
     flags = "-static-libstdc++ -static-libgcc -lSplashKitCPP-win32 -llibSplashKit-win32 -Wl,-Bstatic -lstdc++ -lpthread"
+
+    var fs = require('fs');
+    fs.createReadStream(`${home}/.splashkit/lib/win32/libfreetype-6.dll`).pipe(fs.createWriteStream('libfreetype-6.dll'));
   } else if (process.env.MSYSTEM == 'MINGW64') {
     flags = "-static-libstdc++ -static-libgcc -lSplashKitCPP-win64 -llibSplashKit-win64 -Wl,-Bstatic -lstdc++ -lpthread"
   } else {
