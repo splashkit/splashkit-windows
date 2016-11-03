@@ -13,15 +13,15 @@ execute = function (argv, callback) {
 
   let flags
 
+  // Set the compiler flags based on the architecture
   if (process.env.MSYSTEM == 'MINGW32') {
     flags = "-static-libstdc++ -static-libgcc -lSplashKitCPP-win32 -llibSplashKit-win32 -Wl,-Bstatic -lstdc++ -lpthread"
-    
-    var fs = require('fs');
-    fs.createReadStream(`${home}/.splashkit/lib/win32/libfreetype-6.dll`).pipe(fs.createWriteStream('libfreetype-6.dll'));
   } else if (process.env.MSYSTEM == 'MINGW64') {
     flags = "-static-libstdc++ -static-libgcc -lSplashKitCPP-win64 -llibSplashKit-win64 -Wl,-Bstatic -lstdc++ -lpthread"
   } else {
-    console.log("Can''t determine envioronment.")
+    console.log("Can''t determine envioronment. Make sure you run in the mingw32 or mingw64 terminal.")
+    callback()
+    return
   }
 
   const userArgs = utils.argsToString(argv['original_string'])
@@ -31,7 +31,14 @@ execute = function (argv, callback) {
     if (err) {
       callback(err)
     } else {
-      callback()
+      // For 32bit mingw... we need to copy the libfreetype-6.dll (until we rebuild it and SDL2_ttf)
+      if (process.env.MSYSTEM == 'MINGW32') {
+        var fs = require('fs');
+        stream = fs.createReadStream(`${home}/.splashkit/lib/win32/libfreetype-6.dll`).pipe(fs.createWriteStream('libfreetype-6.dll'));
+        stream.on('finish', function () { callback() });
+      } else {
+        callback()
+      }
     }
   })
 }
