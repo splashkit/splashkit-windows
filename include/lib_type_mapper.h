@@ -51,6 +51,7 @@
 #include "timers.h"
 #include "triangle_drawing.h"
 #include "triangle_geometry.h"
+#include "twitter.h"
 #include "types.h"
 #include "utils.h"
 #include "vector_2d.h"
@@ -62,7 +63,6 @@ using std::string;
 using std::vector;
 using namespace splashkit_lib;
 
-void __sklib__free__sklib_string(__sklib_string s);
 __sklib_string __sklib__to_sklib_string(const std::string &s);
 std::string __sklib__to_string(const __sklib_string &s);
 int __sklib__to_sklib_bool(bool v);
@@ -71,8 +71,8 @@ __sklib_int __sklib__to_sklib_int(int v);
 int __sklib__to_int(int v);
 __sklib_short __sklib__to_sklib_short(short v);
 short __sklib__to_short(short v);
-__sklib_long __sklib__to_sklib_long(long v);
-long __sklib__to_long(long v);
+__sklib_int64_t __sklib__to_sklib_int64_t(int64_t v);
+int64_t __sklib__to_int64_t(int64_t v);
 __sklib_float __sklib__to_sklib_float(float v);
 float __sklib__to_float(float v);
 __sklib_double __sklib__to_sklib_double(double v);
@@ -174,27 +174,21 @@ void (*__sklib__to_sprite_float_function(__sklib_sprite_float_function *v))(__sk
 void (*__sklib__to_sklib_sprite_float_function(sprite_float_function *v))(__sklib_ptr s, float f);
 void (*__sklib__to_sprite_function(__sklib_sprite_function *v))(__sklib_ptr s);
 void (*__sklib__to_sklib_sprite_function(sprite_function *v))(__sklib_ptr s);
-extern "C" void __sklib__free__sklib_vector_line(__sklib_vector_line v);
 __sklib_vector_line __sklib__to_sklib_vector_line(const std::vector<line> &v);
 vector<line> __sklib__to_vector_line(const __sklib_vector_line &v);
 void __sklib__update_from_vector_line(const std::vector<line> &v, __sklib_vector_line *__skreturn);
-extern "C" void __sklib__free__sklib_vector_triangle(__sklib_vector_triangle v);
 __sklib_vector_triangle __sklib__to_sklib_vector_triangle(const std::vector<triangle> &v);
 vector<triangle> __sklib__to_vector_triangle(const __sklib_vector_triangle &v);
 void __sklib__update_from_vector_triangle(const std::vector<triangle> &v, __sklib_vector_triangle *__skreturn);
-extern "C" void __sklib__free__sklib_vector_string(__sklib_vector_string v);
 __sklib_vector_string __sklib__to_sklib_vector_string(const std::vector<string> &v);
 vector<string> __sklib__to_vector_string(const __sklib_vector_string &v);
 void __sklib__update_from_vector_string(const std::vector<string> &v, __sklib_vector_string *__skreturn);
-extern "C" void __sklib__free__sklib_vector_double(__sklib_vector_double v);
 __sklib_vector_double __sklib__to_sklib_vector_double(const std::vector<double> &v);
 vector<double> __sklib__to_vector_double(const __sklib_vector_double &v);
 void __sklib__update_from_vector_double(const std::vector<double> &v, __sklib_vector_double *__skreturn);
-extern "C" void __sklib__free__sklib_vector_json(__sklib_vector_json v);
 __sklib_vector_json __sklib__to_sklib_vector_json(const std::vector<json> &v);
 vector<json> __sklib__to_vector_json(const __sklib_vector_json &v);
 void __sklib__update_from_vector_json(const std::vector<json> &v, __sklib_vector_json *__skreturn);
-extern "C" void __sklib__free__sklib_vector_bool(__sklib_vector_bool v);
 __sklib_vector_bool __sklib__to_sklib_vector_bool(const std::vector<bool> &v);
 vector<bool> __sklib__to_vector_bool(const __sklib_vector_bool &v);
 void __sklib__update_from_vector_bool(const std::vector<bool> &v, __sklib_vector_bool *__skreturn);
