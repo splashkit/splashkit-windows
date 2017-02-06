@@ -6,7 +6,7 @@ const _getCompiler = function (compilerName) {
   let compilers
   const home = process.env.HOME
   try {
-    compilers = require(`${home}/.splashkit/compilers`)
+    compilers = require(`${home}/.splashkit/commands`)
   } catch (error) {
     logger.error(error.message)
     return // Return null if you can't find the directory.
