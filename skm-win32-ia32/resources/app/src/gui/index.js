@@ -1,10 +1,7 @@
-const help = require('../commands/help')
-
-// const table = new Table();
+const docs = require('../commands/docs')
 
 const execute = function (argv, callback) {
-  // gui not implemented
-  help.execute(argv, callback)
+  docs.execute(argv, callback)
 }
 
 module.exports = {
