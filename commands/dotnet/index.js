@@ -5,8 +5,8 @@ execute = function (argv, callback) {
   const sklibs = `${home}\\.splashkit\\lib`
 
   const userArgs = utils.argsToString(argv['original_string'])
-  const skCSharpCode = `${home}\\.splashkit\\compilers\\mcs\\SplashKit.cs`
-  const skCSharpProgram = `${home}\\.splashkit\\compilers\\dotnet\\Program.cs`
+  const skCSharpCode = `${home}\\.splashkit\\commands\\mcs\\SplashKit.cs`
+  const skCSharpProgram = `${home}\\.splashkit\\commands\\dotnet\\Program.cs`
 
   envVars = process.env
   delete envVars["TMP"]

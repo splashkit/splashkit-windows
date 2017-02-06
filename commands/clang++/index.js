@@ -3,10 +3,10 @@ const utils = require('../../utils')
 const home = process.env.HOME
 
 execute = function (argv, callback) {
-  const cppBuild = `${home}/.splashkit/compilers/clang++/include`
+  const cppBuild = `${home}/.splashkit/commands/clang++/include`
   const includeFolder = `${home}/.splashkit/include`
   const sklibs = {
-    static: `${home}/.splashkit/compilers/clang++/lib`,
+    static: `${home}/.splashkit/commands/clang++/lib`,
     dynamic: `${home}/.splashkit/lib`
   }
 
