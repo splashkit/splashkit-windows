@@ -4,10 +4,10 @@ const {homedir} = require('os')
 const home = process.env.HOME
 
 execute = function (argv, callback) {
-  const cppBuild = `${home}/.splashkit/compilers/g++/include`
+  const cppBuild = `${home}/.splashkit/commands/g++/include`
   const includeFolder = `${home}/.splashkit/include`
   const sklibs = {
-    static: `${home}/.splashkit/compilers/g++/lib`,
+    static: `${home}/.splashkit/commands/g++/lib`,
     dynamic: `${home}/.splashkit/lib`
   }
 
