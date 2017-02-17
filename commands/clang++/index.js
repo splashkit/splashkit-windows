@@ -1,6 +1,6 @@
 const utils = require('../../utils')
 
-const home = process.env.HOME
+const home = process.env.HOME.replace(/^(.*):\\/,'/$1/').replace(/\\/, '/')
 
 execute = function (argv, callback) {
   const cppBuild = `${home}/.splashkit/commands/clang++/include`
