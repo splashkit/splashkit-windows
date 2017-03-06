@@ -1,6 +1,8 @@
 const utils = require('../../utils')
+const {homedir} = require('os')
 
-const home = process.env.HOME
+const home = process.env.HOME.replace(/^(.*):\\/, '/$1/').replace(/\\/, '/').replace(/\\/, '/').replace(/C/, 'c')
+
 
 execute = function (argv, callback) {
   const cppBuild = `${home}/.splashkit/commands/clang++/include`
@@ -14,9 +16,12 @@ execute = function (argv, callback) {
 
   // Set the compiler flags based on the architecture
   if (process.env.MSYSTEM == 'MINGW32') {
-    flags = "-static-libstdc++ -static-libgcc -lSplashKitCPP-win32 -llibSplashKit-win32 -Wl,-Bstatic -lstdc++ -lpthread"
+    flags = `-L${home}/.splashkit/lib/win32 -static-libstdc++ -static-libgcc -lSplashKitCPP-win32 -lSplashKit -Wl,-Bstatic -lstdc++ -lpthread`
+
+    var fs = require('fs');
+    fs.createReadStream(`${process.env.HOME}\\.splashkit\\lib\\win32\\libfreetype-6.dll`).pipe(fs.createWriteStream('libfreetype-6.dll'));
   } else if (process.env.MSYSTEM == 'MINGW64') {
-    flags = "-static-libstdc++ -static-libgcc -lSplashKitCPP-win64 -llibSplashKit-win64 -Wl,-Bstatic -lstdc++ -lpthread"
+    flags = `-L${home}/.splashkit/lib/win64 -static-libstdc++ -static-libgcc -lSplashKitCPP-win64 -lSplashKit -Wl,-Bstatic -lstdc++ -lpthread`
   } else {
     console.log("Can''t determine envioronment. Make sure you run in the mingw32 or mingw64 terminal.")
     callback()
@@ -42,6 +47,6 @@ execute = function (argv, callback) {
   })
 }
 
- module.exports = {
+module.exports = {
   execute: execute
 }
