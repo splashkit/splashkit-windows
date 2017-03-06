@@ -416,6 +416,11 @@ procedure ResetClip(wnd: Window);
 procedure SetClip(const r: Rectangle);
 procedure SetClip(bmp: Bitmap; const r: Rectangle);
 procedure SetClip(wnd: Window; const r: Rectangle);
+function BitmapCircleCollision(bmp: Bitmap; const pt: Point2D; const circ: Circle): Boolean;
+function BitmapCircleCollision(bmp: Bitmap; x: Double; y: Double; const circ: Circle): Boolean;
+function BitmapCircleCollision(bmp: Bitmap; cell: Integer; const translation: Matrix2D; const circ: Circle): Boolean;
+function BitmapCircleCollision(bmp: Bitmap; cell: Integer; const pt: Point2D; const circ: Circle): Boolean;
+function BitmapCircleCollision(bmp: Bitmap; cell: Integer; x: Double; y: Double; const circ: Circle): Boolean;
 function BitmapCollision(bmp1: Bitmap; x1: Double; y1: Double; bmp2: Bitmap; x2: Double; y2: Double): Boolean;
 function BitmapCollision(bmp1: Bitmap; const pt1: Point2D; bmp2: Bitmap; const pt2: Point2D): Boolean;
 function BitmapCollision(bmp1: Bitmap; cell1: Integer; const matrix1: Matrix2D; bmp2: Bitmap; cell2: Integer; const matrix2: Matrix2D): Boolean;
@@ -425,8 +430,11 @@ function BitmapPointCollision(bmp: Bitmap; const translation: Matrix2D; const pt
 function BitmapPointCollision(bmp: Bitmap; const bmpPt: Point2D; const pt: Point2D): Boolean;
 function BitmapPointCollision(bmp: Bitmap; bmpX: Double; bmpY: Double; x: Double; y: Double): Boolean;
 function BitmapPointCollision(bmp: Bitmap; cell: Integer; const translation: Matrix2D; const pt: Point2D): Boolean;
+function BitmapRectangleCollision(bmp: Bitmap; const pt: Point2D; const rect: Rectangle): Boolean;
+function BitmapRectangleCollision(bmp: Bitmap; x: Double; y: Double; const rect: Rectangle): Boolean;
 function BitmapRectangleCollision(bmp: Bitmap; cell: Integer; const translation: Matrix2D; const rect: Rectangle): Boolean;
 function BitmapRectangleCollision(bmp: Bitmap; cell: Integer; const pt: Point2D; const rect: Rectangle): Boolean;
+function BitmapRectangleCollision(bmp: Bitmap; cell: Integer; x: Double; y: Double; const rect: Rectangle): Boolean;
 function SpriteBitmapCollision(s: Sprite; bmp: Bitmap; x: Double; y: Double): Boolean;
 function SpriteBitmapCollision(s: Sprite; bmp: Bitmap; cell: Integer; const pt: Point2D): Boolean;
 function SpriteBitmapCollision(s: Sprite; bmp: Bitmap; cell: Integer; x: Double; y: Double): Boolean;
@@ -891,6 +899,7 @@ function ConnectionPort(const name: String): Word;
 function CreateServer(const name: String; port: Word): ServerSocket;
 function CreateServer(const name: String; port: Word; protocol: ConnectionType): ServerSocket;
 function DecToHex(aDec: Cardinal): String;
+function FetchNewConnection(server: ServerSocket): Connection;
 function HasConnection(const name: String): Boolean;
 function HasMessages(): Boolean;
 function HasMessages(con: Connection): Boolean;
@@ -918,6 +927,7 @@ function MessagePort(msg: Message): Word;
 function MessageProtocol(msg: Message): ConnectionType;
 function MyIP(): String;
 function NameForConnection(host: String; port: Cardinal): String;
+function NewConnectionCount(server: ServerSocket): Integer;
 function OpenConnection(const name: String; const host: String; port: Word): Connection;
 function OpenConnection(const name: String; const host: String; port: Word; protocol: ConnectionType): Connection;
 function ReadMessage(): Message;
@@ -930,6 +940,7 @@ function ReadMessageData(svr: ServerSocket): String;
 procedure Reconnect(aConnection: Connection);
 procedure Reconnect(const name: String);
 procedure ReleaseAllConnections();
+procedure ResetNewConnectionCount(server: ServerSocket);
 function RetrieveConnection(const name: String; idx: Integer): Connection;
 function RetrieveConnection(server: ServerSocket; idx: Integer): Connection;
 function SendMessageTo(const aMsg: String; aConnection: Connection): Boolean;
@@ -2473,6 +2484,11 @@ procedure __sklib__reset_clip__window(wnd: __sklib_ptr); cdecl; external;
 procedure __sklib__set_clip__rectangle_ref(const r: __sklib_rectangle); cdecl; external;
 procedure __sklib__set_clip__bitmap__rectangle_ref(bmp: __sklib_ptr; const r: __sklib_rectangle); cdecl; external;
 procedure __sklib__set_clip__window__rectangle_ref(wnd: __sklib_ptr; const r: __sklib_rectangle); cdecl; external;
+function __sklib__bitmap_circle_collision__bitmap__point_2d_ref__circle_ref(bmp: __sklib_ptr; const pt: __sklib_point_2d; const circ: __sklib_circle): LongInt; cdecl; external;
+function __sklib__bitmap_circle_collision__bitmap__double__double__circle_ref(bmp: __sklib_ptr; x: Double; y: Double; const circ: __sklib_circle): LongInt; cdecl; external;
+function __sklib__bitmap_circle_collision__bitmap__int__matrix_2d_ref__circle_ref(bmp: __sklib_ptr; cell: Integer; const translation: __sklib_matrix_2d; const circ: __sklib_circle): LongInt; cdecl; external;
+function __sklib__bitmap_circle_collision__bitmap__int__point_2d_ref__circle_ref(bmp: __sklib_ptr; cell: Integer; const pt: __sklib_point_2d; const circ: __sklib_circle): LongInt; cdecl; external;
+function __sklib__bitmap_circle_collision__bitmap__int__double__double__circle_ref(bmp: __sklib_ptr; cell: Integer; x: Double; y: Double; const circ: __sklib_circle): LongInt; cdecl; external;
 function __sklib__bitmap_collision__bitmap__double__double__bitmap__double__double(bmp1: __sklib_ptr; x1: Double; y1: Double; bmp2: __sklib_ptr; x2: Double; y2: Double): LongInt; cdecl; external;
 function __sklib__bitmap_collision__bitmap__point_2d_ref__bitmap__point_2d_ref(bmp1: __sklib_ptr; const pt1: __sklib_point_2d; bmp2: __sklib_ptr; const pt2: __sklib_point_2d): LongInt; cdecl; external;
 function __sklib__bitmap_collision__bitmap__int__matrix_2d_ref__bitmap__int__matrix_2d_ref(bmp1: __sklib_ptr; cell1: Integer; const matrix1: __sklib_matrix_2d; bmp2: __sklib_ptr; cell2: Integer; const matrix2: __sklib_matrix_2d): LongInt; cdecl; external;
@@ -2482,8 +2498,11 @@ function __sklib__bitmap_point_collision__bitmap__matrix_2d_ref__point_2d_ref(bm
 function __sklib__bitmap_point_collision__bitmap__point_2d_ref__point_2d_ref(bmp: __sklib_ptr; const bmpPt: __sklib_point_2d; const pt: __sklib_point_2d): LongInt; cdecl; external;
 function __sklib__bitmap_point_collision__bitmap__double__double__double__double(bmp: __sklib_ptr; bmpX: Double; bmpY: Double; x: Double; y: Double): LongInt; cdecl; external;
 function __sklib__bitmap_point_collision__bitmap__int__matrix_2d_ref__point_2d_ref(bmp: __sklib_ptr; cell: Integer; const translation: __sklib_matrix_2d; const pt: __sklib_point_2d): LongInt; cdecl; external;
+function __sklib__bitmap_rectangle_collision__bitmap__point_2d_ref__rectangle_ref(bmp: __sklib_ptr; const pt: __sklib_point_2d; const rect: __sklib_rectangle): LongInt; cdecl; external;
+function __sklib__bitmap_rectangle_collision__bitmap__double__double__rectangle_ref(bmp: __sklib_ptr; x: Double; y: Double; const rect: __sklib_rectangle): LongInt; cdecl; external;
 function __sklib__bitmap_rectangle_collision__bitmap__int__matrix_2d_ref__rectangle_ref(bmp: __sklib_ptr; cell: Integer; const translation: __sklib_matrix_2d; const rect: __sklib_rectangle): LongInt; cdecl; external;
 function __sklib__bitmap_rectangle_collision__bitmap__int__point_2d_ref__rectangle_ref(bmp: __sklib_ptr; cell: Integer; const pt: __sklib_point_2d; const rect: __sklib_rectangle): LongInt; cdecl; external;
+function __sklib__bitmap_rectangle_collision__bitmap__int__double__double__rectangle_ref(bmp: __sklib_ptr; cell: Integer; x: Double; y: Double; const rect: __sklib_rectangle): LongInt; cdecl; external;
 function __sklib__sprite_bitmap_collision__sprite__bitmap__double__double(s: __sklib_ptr; bmp: __sklib_ptr; x: Double; y: Double): LongInt; cdecl; external;
 function __sklib__sprite_bitmap_collision__sprite__bitmap__int__point_2d_ref(s: __sklib_ptr; bmp: __sklib_ptr; cell: Integer; const pt: __sklib_point_2d): LongInt; cdecl; external;
 function __sklib__sprite_bitmap_collision__sprite__bitmap__int__double__double(s: __sklib_ptr; bmp: __sklib_ptr; cell: Integer; x: Double; y: Double): LongInt; cdecl; external;
@@ -2948,6 +2967,7 @@ function __sklib__connection_port__string_ref(const name: __sklib_string): Word;
 function __sklib__create_server__string_ref__unsigned_short(const name: __sklib_string; port: Word): __sklib_ptr; cdecl; external;
 function __sklib__create_server__string_ref__unsigned_short__connection_type(const name: __sklib_string; port: Word; protocol: LongInt): __sklib_ptr; cdecl; external;
 function __sklib__dec_to_hex__unsigned_int(aDec: Cardinal): __sklib_string; cdecl; external;
+function __sklib__fetch_new_connection__server_socket(server: __sklib_ptr): __sklib_ptr; cdecl; external;
 function __sklib__has_connection__string_ref(const name: __sklib_string): LongInt; cdecl; external;
 function __sklib__has_messages(): LongInt; cdecl; external;
 function __sklib__has_messages__connection(con: __sklib_ptr): LongInt; cdecl; external;
@@ -2975,6 +2995,7 @@ function __sklib__message_port__message(msg: __sklib_ptr): Word; cdecl; external
 function __sklib__message_protocol__message(msg: __sklib_ptr): LongInt; cdecl; external;
 function __sklib__my_ip(): __sklib_string; cdecl; external;
 function __sklib__name_for_connection__string__unsigned_int(host: __sklib_string; port: Cardinal): __sklib_string; cdecl; external;
+function __sklib__new_connection_count__server_socket(server: __sklib_ptr): Integer; cdecl; external;
 function __sklib__open_connection__string_ref__string_ref__unsigned_short(const name: __sklib_string; const host: __sklib_string; port: Word): __sklib_ptr; cdecl; external;
 function __sklib__open_connection__string_ref__string_ref__unsigned_short__connection_type(const name: __sklib_string; const host: __sklib_string; port: Word; protocol: LongInt): __sklib_ptr; cdecl; external;
 function __sklib__read_message(): __sklib_ptr; cdecl; external;
@@ -2987,6 +3008,7 @@ function __sklib__read_message_data__server_socket(svr: __sklib_ptr): __sklib_st
 procedure __sklib__reconnect__connection(aConnection: __sklib_ptr); cdecl; external;
 procedure __sklib__reconnect__string_ref(const name: __sklib_string); cdecl; external;
 procedure __sklib__release_all_connections(); cdecl; external;
+procedure __sklib__reset_new_connection_count__server_socket(server: __sklib_ptr); cdecl; external;
 function __sklib__retrieve_connection__string_ref__int(const name: __sklib_string; idx: Integer): __sklib_ptr; cdecl; external;
 function __sklib__retrieve_connection__server_socket__int(server: __sklib_ptr; idx: Integer): __sklib_ptr; cdecl; external;
 function __sklib__send_message_to__string_ref__connection(const aMsg: __sklib_string; aConnection: __sklib_ptr): LongInt; cdecl; external;
@@ -4596,6 +4618,81 @@ begin
   __skparam__r := __skadapter__to_sklib_rectangle(r);
   __sklib__set_clip__window__rectangle_ref(__skparam__wnd, __skparam__r);
 end;
+function BitmapCircleCollision(bmp: Bitmap; const pt: Point2D; const circ: Circle): Boolean;
+var
+  __skparam__bmp: __sklib_ptr;
+  __skparam__pt: __sklib_point_2d;
+  __skparam__circ: __sklib_circle;
+  __skreturn: LongInt;
+begin
+  __skparam__bmp := __skadapter__to_sklib_bitmap(bmp);
+  __skparam__pt := __skadapter__to_sklib_point_2d(pt);
+  __skparam__circ := __skadapter__to_sklib_circle(circ);
+  __skreturn := __sklib__bitmap_circle_collision__bitmap__point_2d_ref__circle_ref(__skparam__bmp, __skparam__pt, __skparam__circ);
+  result := __skadapter__to_bool(__skreturn);
+end;
+function BitmapCircleCollision(bmp: Bitmap; x: Double; y: Double; const circ: Circle): Boolean;
+var
+  __skparam__bmp: __sklib_ptr;
+  __skparam__x: Double;
+  __skparam__y: Double;
+  __skparam__circ: __sklib_circle;
+  __skreturn: LongInt;
+begin
+  __skparam__bmp := __skadapter__to_sklib_bitmap(bmp);
+  __skparam__x := __skadapter__to_sklib_double(x);
+  __skparam__y := __skadapter__to_sklib_double(y);
+  __skparam__circ := __skadapter__to_sklib_circle(circ);
+  __skreturn := __sklib__bitmap_circle_collision__bitmap__double__double__circle_ref(__skparam__bmp, __skparam__x, __skparam__y, __skparam__circ);
+  result := __skadapter__to_bool(__skreturn);
+end;
+function BitmapCircleCollision(bmp: Bitmap; cell: Integer; const translation: Matrix2D; const circ: Circle): Boolean;
+var
+  __skparam__bmp: __sklib_ptr;
+  __skparam__cell: Integer;
+  __skparam__translation: __sklib_matrix_2d;
+  __skparam__circ: __sklib_circle;
+  __skreturn: LongInt;
+begin
+  __skparam__bmp := __skadapter__to_sklib_bitmap(bmp);
+  __skparam__cell := __skadapter__to_sklib_int(cell);
+  __skparam__translation := __skadapter__to_sklib_matrix_2d(translation);
+  __skparam__circ := __skadapter__to_sklib_circle(circ);
+  __skreturn := __sklib__bitmap_circle_collision__bitmap__int__matrix_2d_ref__circle_ref(__skparam__bmp, __skparam__cell, __skparam__translation, __skparam__circ);
+  result := __skadapter__to_bool(__skreturn);
+end;
+function BitmapCircleCollision(bmp: Bitmap; cell: Integer; const pt: Point2D; const circ: Circle): Boolean;
+var
+  __skparam__bmp: __sklib_ptr;
+  __skparam__cell: Integer;
+  __skparam__pt: __sklib_point_2d;
+  __skparam__circ: __sklib_circle;
+  __skreturn: LongInt;
+begin
+  __skparam__bmp := __skadapter__to_sklib_bitmap(bmp);
+  __skparam__cell := __skadapter__to_sklib_int(cell);
+  __skparam__pt := __skadapter__to_sklib_point_2d(pt);
+  __skparam__circ := __skadapter__to_sklib_circle(circ);
+  __skreturn := __sklib__bitmap_circle_collision__bitmap__int__point_2d_ref__circle_ref(__skparam__bmp, __skparam__cell, __skparam__pt, __skparam__circ);
+  result := __skadapter__to_bool(__skreturn);
+end;
+function BitmapCircleCollision(bmp: Bitmap; cell: Integer; x: Double; y: Double; const circ: Circle): Boolean;
+var
+  __skparam__bmp: __sklib_ptr;
+  __skparam__cell: Integer;
+  __skparam__x: Double;
+  __skparam__y: Double;
+  __skparam__circ: __sklib_circle;
+  __skreturn: LongInt;
+begin
+  __skparam__bmp := __skadapter__to_sklib_bitmap(bmp);
+  __skparam__cell := __skadapter__to_sklib_int(cell);
+  __skparam__x := __skadapter__to_sklib_double(x);
+  __skparam__y := __skadapter__to_sklib_double(y);
+  __skparam__circ := __skadapter__to_sklib_circle(circ);
+  __skreturn := __sklib__bitmap_circle_collision__bitmap__int__double__double__circle_ref(__skparam__bmp, __skparam__cell, __skparam__x, __skparam__y, __skparam__circ);
+  result := __skadapter__to_bool(__skreturn);
+end;
 function BitmapCollision(bmp1: Bitmap; x1: Double; y1: Double; bmp2: Bitmap; x2: Double; y2: Double): Boolean;
 var
   __skparam__bmp1: __sklib_ptr;
@@ -4749,6 +4846,34 @@ begin
   __skreturn := __sklib__bitmap_point_collision__bitmap__int__matrix_2d_ref__point_2d_ref(__skparam__bmp, __skparam__cell, __skparam__translation, __skparam__pt);
   result := __skadapter__to_bool(__skreturn);
 end;
+function BitmapRectangleCollision(bmp: Bitmap; const pt: Point2D; const rect: Rectangle): Boolean;
+var
+  __skparam__bmp: __sklib_ptr;
+  __skparam__pt: __sklib_point_2d;
+  __skparam__rect: __sklib_rectangle;
+  __skreturn: LongInt;
+begin
+  __skparam__bmp := __skadapter__to_sklib_bitmap(bmp);
+  __skparam__pt := __skadapter__to_sklib_point_2d(pt);
+  __skparam__rect := __skadapter__to_sklib_rectangle(rect);
+  __skreturn := __sklib__bitmap_rectangle_collision__bitmap__point_2d_ref__rectangle_ref(__skparam__bmp, __skparam__pt, __skparam__rect);
+  result := __skadapter__to_bool(__skreturn);
+end;
+function BitmapRectangleCollision(bmp: Bitmap; x: Double; y: Double; const rect: Rectangle): Boolean;
+var
+  __skparam__bmp: __sklib_ptr;
+  __skparam__x: Double;
+  __skparam__y: Double;
+  __skparam__rect: __sklib_rectangle;
+  __skreturn: LongInt;
+begin
+  __skparam__bmp := __skadapter__to_sklib_bitmap(bmp);
+  __skparam__x := __skadapter__to_sklib_double(x);
+  __skparam__y := __skadapter__to_sklib_double(y);
+  __skparam__rect := __skadapter__to_sklib_rectangle(rect);
+  __skreturn := __sklib__bitmap_rectangle_collision__bitmap__double__double__rectangle_ref(__skparam__bmp, __skparam__x, __skparam__y, __skparam__rect);
+  result := __skadapter__to_bool(__skreturn);
+end;
 function BitmapRectangleCollision(bmp: Bitmap; cell: Integer; const translation: Matrix2D; const rect: Rectangle): Boolean;
 var
   __skparam__bmp: __sklib_ptr;
@@ -4777,6 +4902,23 @@ begin
   __skparam__pt := __skadapter__to_sklib_point_2d(pt);
   __skparam__rect := __skadapter__to_sklib_rectangle(rect);
   __skreturn := __sklib__bitmap_rectangle_collision__bitmap__int__point_2d_ref__rectangle_ref(__skparam__bmp, __skparam__cell, __skparam__pt, __skparam__rect);
+  result := __skadapter__to_bool(__skreturn);
+end;
+function BitmapRectangleCollision(bmp: Bitmap; cell: Integer; x: Double; y: Double; const rect: Rectangle): Boolean;
+var
+  __skparam__bmp: __sklib_ptr;
+  __skparam__cell: Integer;
+  __skparam__x: Double;
+  __skparam__y: Double;
+  __skparam__rect: __sklib_rectangle;
+  __skreturn: LongInt;
+begin
+  __skparam__bmp := __skadapter__to_sklib_bitmap(bmp);
+  __skparam__cell := __skadapter__to_sklib_int(cell);
+  __skparam__x := __skadapter__to_sklib_double(x);
+  __skparam__y := __skadapter__to_sklib_double(y);
+  __skparam__rect := __skadapter__to_sklib_rectangle(rect);
+  __skreturn := __sklib__bitmap_rectangle_collision__bitmap__int__double__double__rectangle_ref(__skparam__bmp, __skparam__cell, __skparam__x, __skparam__y, __skparam__rect);
   result := __skadapter__to_bool(__skreturn);
 end;
 function SpriteBitmapCollision(s: Sprite; bmp: Bitmap; x: Double; y: Double): Boolean;
@@ -8996,6 +9138,15 @@ begin
   __skreturn := __sklib__dec_to_hex__unsigned_int(__skparam__a_dec);
   result := __skadapter__to_string(__skreturn);
 end;
+function FetchNewConnection(server: ServerSocket): Connection;
+var
+  __skparam__server: __sklib_ptr;
+  __skreturn: __sklib_ptr;
+begin
+  __skparam__server := __skadapter__to_sklib_server_socket(server);
+  __skreturn := __sklib__fetch_new_connection__server_socket(__skparam__server);
+  result := __skadapter__to_connection(__skreturn);
+end;
 function HasConnection(const name: String): Boolean;
 var
   __skparam__name: __sklib_string;
@@ -9235,6 +9386,15 @@ begin
   __skreturn := __sklib__name_for_connection__string__unsigned_int(__skparam__host, __skparam__port);
   result := __skadapter__to_string(__skreturn);
 end;
+function NewConnectionCount(server: ServerSocket): Integer;
+var
+  __skparam__server: __sklib_ptr;
+  __skreturn: Integer;
+begin
+  __skparam__server := __skadapter__to_sklib_server_socket(server);
+  __skreturn := __sklib__new_connection_count__server_socket(__skparam__server);
+  result := __skadapter__to_int(__skreturn);
+end;
 function OpenConnection(const name: String; const host: String; port: Word): Connection;
 var
   __skparam__name: __sklib_string;
@@ -9341,6 +9501,13 @@ end;
 procedure ReleaseAllConnections();
 begin
   __sklib__release_all_connections();
+end;
+procedure ResetNewConnectionCount(server: ServerSocket);
+var
+  __skparam__server: __sklib_ptr;
+begin
+  __skparam__server := __skadapter__to_sklib_server_socket(server);
+  __sklib__reset_new_connection_count__server_socket(__skparam__server);
 end;
 function RetrieveConnection(const name: String; idx: Integer): Connection;
 var

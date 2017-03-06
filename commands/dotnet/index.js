@@ -11,6 +11,7 @@ execute = function (argv, callback) {
   envVars = process.env
   delete envVars["TMP"]
   delete envVars["TEMP"]
+  envVars["PATH"] = `${home}\\.splashkit\\lib\\win64:${home}\\.splashkit\\lib\\win32:${envVars["PATH"]}`
   
   utils.runCommandWithEnv(`dotnet ${userArgs}`, envVars, function (err, data) {
       if (err) {
