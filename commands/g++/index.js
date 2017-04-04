@@ -29,7 +29,7 @@ execute = function (argv, callback) {
   }
 
   const userArgs = utils.argsToString(argv['original_string'])
-  const gArgs = `-I ${includeFolder} -I ${cppBuild} -L ${sklibs.dynamic} -L ${sklibs.static}`
+  const gArgs = `-I ${includeFolder} -I ${cppBuild} -L ${sklibs.dynamic} -L ${sklibs.static} ${home}/.splashkit/commands/clang++/src/*.cpp`
 
   utils.runCommand(`g++ ${gArgs} ${userArgs} ${flags}`, function (err, data) {
     if (err) {
