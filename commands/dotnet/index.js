@@ -17,7 +17,7 @@ execute = function (argv, callback) {
       if (err) {
           callback()
       } else {
-          if ( userArgs == "new" ) {
+          if ( argv["_"][1] == "new" ) {
               utils.runCommands(["md lib", `ln -s "${skCSharpCode}" ./lib/SplashKit.cs`, `cp "${skCSharpProgram}" .`], function (err1, data) {
                   if (err1) {
                       callback(null, "I couldn't add in the SplashKit library... -- ${err1}")
