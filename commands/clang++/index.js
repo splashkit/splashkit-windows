@@ -1,27 +1,27 @@
 const utils = require('../../utils')
 const {homedir} = require('os')
 
-const home = process.env.HOME.replace(/^(.*):\\/, '/$1/').replace(/\\/, '/').replace(/\\/, '/').replace(/C/, 'c')
+const home = process.env.HOME //.replace(/^(.*):\\/, '/$1/').replace(/\\/, '/').replace(/\\/, '/').replace(/C/, 'c')
 
 
 execute = function (argv, callback) {
-  const cppBuild = `${home}/.splashkit/commands/clang++/include`
-  const includeFolder = `${home}/.splashkit/include`
+  const cppBuild = `${home}\\.splashkit\\commands\\clang++\\include`
+  const includeFolder = `${home}\\.splashkit\\include`
   const sklibs = {
-    static: `${home}/.splashkit/commands/clang++/lib`,
-    dynamic: `${home}/.splashkit/lib`
+    static: `${home}\\.splashkit\\commands\\clang++\\lib`,
+    dynamic: `${home}\\.splashkit\\lib`
   }
 
   let flags
 
   // Set the compiler flags based on the architecture
   if (process.env.MSYSTEM == 'MINGW32') {
-    flags = `-L${home}/.splashkit/lib/win32 -static-libstdc++ -static-libgcc -lSplashKitCPP-win32 -lSplashKit -Wl,-Bstatic -lstdc++ -lpthread`
+    flags = `-L${home}\\.splashkit\\lib\\win32 -static-libstdc++ -static-libgcc -lSplashKitCPP-win32 -lSplashKit -Wl,-Bstatic -lstdc++ -lpthread`
 
     var fs = require('fs');
     fs.createReadStream(`${process.env.HOME}\\.splashkit\\lib\\win32\\libfreetype-6.dll`).pipe(fs.createWriteStream('libfreetype-6.dll'));
   } else if (process.env.MSYSTEM == 'MINGW64') {
-    flags = `-L${home}/.splashkit/lib/win64 -static-libstdc++ -static-libgcc -lSplashKitCPP-win64 -lSplashKit -Wl,-Bstatic -lstdc++ -lpthread`
+    flags = `-std=c++14 -L${home}\\.splashkit\\lib\\win64 -static-libstdc++ -static-libgcc -lSplashKit -Wl,-Bstatic -lstdc++ -lpthread`
   } else {
     console.log("Can''t determine envioronment. Make sure you run in the mingw32 or mingw64 terminal.")
     callback()
@@ -38,7 +38,7 @@ execute = function (argv, callback) {
       // For 32bit mingw... we need to copy the libfreetype-6.dll (until we rebuild it and SDL2_ttf)
       if (process.env.MSYSTEM == 'MINGW32') {
         var fs = require('fs');
-        stream = fs.createReadStream(`${home}/.splashkit/lib/win32/libfreetype-6.dll`).pipe(fs.createWriteStream('libfreetype-6.dll'));
+        stream = fs.createReadStream(`${home}\\.splashkit\\lib\\win32\\libfreetype-6.dll`).pipe(fs.createWriteStream('libfreetype-6.dll'));
         stream.on('finish', function () { callback() });
       } else {
         callback()
