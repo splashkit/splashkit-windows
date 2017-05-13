@@ -16,12 +16,9 @@ execute = function (argv, callback) {
 
   // Set the compiler flags based on the architecture
   if (process.env.MSYSTEM == 'MINGW32') {
-    flags = `-L${home}\\.splashkit\\lib\\win32 -static-libstdc++ -static-libgcc -lSplashKitCPP-win32 -lSplashKit -Wl,-Bstatic -lstdc++ -lpthread`
-
-    var fs = require('fs');
-    fs.createReadStream(`${process.env.HOME}\\.splashkit\\lib\\win32\\libfreetype-6.dll`).pipe(fs.createWriteStream('libfreetype-6.dll'));
+    flags = `-g -std=c++14 -L${home}\\.splashkit\\lib\\win32 -static-libstdc++ -static-libgcc -lSplashKit -Wl,-Bstatic -lstdc++ -lpthread`
   } else if (process.env.MSYSTEM == 'MINGW64') {
-    flags = `-std=c++14 -L${home}\\.splashkit\\lib\\win64 -static-libstdc++ -static-libgcc -lSplashKit -Wl,-Bstatic -lstdc++ -lpthread`
+    flags = `-g -std=c++14 -L${home}\\.splashkit\\lib\\win64 -static-libstdc++ -static-libgcc -lSplashKit -Wl,-Bstatic -lstdc++ -lpthread`
   } else {
     console.log("Can''t determine envioronment. Make sure you run in the mingw32 or mingw64 terminal.")
     callback()
