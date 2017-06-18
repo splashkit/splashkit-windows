@@ -28,7 +28,7 @@ execute = function (argv, callback) {
   const userArgs = utils.argsToString(argv['original_string'])
   const clangArgs = `-I ${includeFolder} -I ${cppBuild} -L ${sklibs.dynamic} -L ${sklibs.static} ${home}/.splashkit/commands/clang++/src/*.cpp`
 
-  utils.runCommand(`clang++ ${clangArgs} ${userArgs} ${flags}`, function (err, data) {
+  utils.runCommand(`g++ ${clangArgs} ${userArgs} ${flags}`, function (err, data) {
     if (err) {
       callback(err)
     } else {
