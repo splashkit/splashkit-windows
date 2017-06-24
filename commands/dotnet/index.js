@@ -18,11 +18,11 @@ execute = function (argv, callback) {
           callback()
       } else {
           if ( argv["_"][1] == "restore" ) {
-              utils.runCommand(`mkdir -p ./lib; ln -f -s "${skCSharpCode}" ./lib/SplashKit.cs`, function (err1, data) {
+              utils.runCommands(["md lib", `ln -f -s "${skCSharpCode}" ./lib/SplashKit.cs`], function (err1, data) {
                   if (err1) {
-                      callback(null, "I couldn't add in the SplashKit library... 😟 -- ${err1}")
+                      callback(null, "I couldn't add in the SplashKit library... -- ${err1}")
                   } else {
-                      callback(null, '🎉  dotnet command ran successfully 🎉')
+                      callback(null, 'dotnet command ran successfully')
                   }
               })
           }

@@ -1,15 +1,23 @@
-const utils = require('../../utils')
+const utils = require('..\\..\\utils')
 const home = process.env.HOME
 
 execute = function (argv, callback) {
-  const sklibs = `${home}/.splashkit/lib`
+  const sklibs = `${home}\\.splashkit\\lib`
 
   const userArgs = utils.argsToString(argv['original_string'])
   const skLanguageResources = {
       "c++": {
-          "files": `${home}/.splashkit/commands/new/c++`,
+          "files": `${home}\\.splashkit\\commands\\new\\c++\\`,
           "proc": function ( ) {
-            utils.runCommand(`ln -f -s "${home}/.splashkit/commands/clang++/include" ./include/splashkit`, function (err1, data) {
+            
+            utils.runCommand(`cp -r -n "${home}\\.splashkit\\commands\\new\\c++\\program.cpp" .`, function (err1, data) {
+                if (err1) {
+                    callback(err1)
+                    return
+                }
+            })
+
+            utils.runCommands(["md include", `ln -f -s "${home}\\.splashkit\\commands\\clang++\\include" ./include/splashkit`], function (err1, data) {
                     if (err1) {
                         callback(`Failed to link in splashkit header files ${err1}`)
                     }
@@ -22,13 +30,6 @@ execute = function (argv, callback) {
 
   if ( userLang in skLanguageResources )
   {
-    utils.runCommand(`cp -r -n "${skLanguageResources[userLang]["files"]}/" .`, function (err1, data) {
-        if (err1) {
-            callback(err1)
-            return
-        }
-    })
-
     skLanguageResources[userLang]["proc"]()
 
     callback(null, `Successfully created a new ${userLang} project! 🎉`)

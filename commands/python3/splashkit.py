@@ -1,8 +1,8 @@
 from ctypes import *
 from enum import Enum
 
-cdll.LoadLibrary("libSplashKit.dylib")
-sklib = CDLL("libsplashkit.dylib")
+cdll.LoadLibrary("libSplashKit.dll")
+sklib = CDLL("libsplashkit.dll")
 
 class _sklib_string(Structure):
     _fields_ = [
