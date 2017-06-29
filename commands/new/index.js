@@ -20,6 +20,7 @@ execute = function (argv, callback) {
             utils.runCommands(["md include", `ln -f -s "${home}\\.splashkit\\commands\\clang++\\include" ./include/splashkit`], function (err1, data) {
                     if (err1) {
                         callback(`Failed to link in splashkit header files ${err1}`)
+                        return
                     }
                 })
           }
