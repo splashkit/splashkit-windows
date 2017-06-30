@@ -4,7 +4,7 @@
     "version": "0.1.0",
     "command": "c:\\msys64\\msys2_shell.cmd",
     "isShellCommand": true,
-    "args": [ "-mingw64", "-where", "${workspaceRoot}", "-lc", "\"skm clang++ -g program.cpp -o ${workspaceRootFolderName}; echo 'press enter to continue...'; read -s\""],
+    "args": [ "-mingw64", "-where", "${workspaceRoot}", "-lc", "\"PATH=~/.splashkit/skm-win32-ia32:~/.splashkit/lib/win64:$PATH skm clang++ -g program.cpp -o ${workspaceRootFolderName}; echo 'press enter to continue...'; read -s\""],
     "showOutput": "always",
     "problemMatcher": {
             "owner": "cpp",

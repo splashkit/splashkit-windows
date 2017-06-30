@@ -17,6 +17,13 @@ execute = function (argv, callback) {
                 }
             })
 
+            utils.runCommand(`cp -r -n "${home}\\.splashkit\\commands\\new\\c++\\.vscode" .`, function (err1, data) {
+                if (err1) {
+                    callback(err1)
+                    return
+                }
+            })
+
             utils.runCommands(["md include", `ln -f -s "${home}\\.splashkit\\commands\\clang++\\include" ./include/splashkit`], function (err1, data) {
                     if (err1) {
                         callback(`Failed to link in splashkit header files ${err1}`)
