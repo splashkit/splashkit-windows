@@ -5,11 +5,11 @@ const home = process.env.HOME //.replace(/^(.*):\\/, '/$1/').replace(/\\/, '/').
 
 
 execute = function (argv, callback) {
-  const cppBuild = `${home}\\.splashkit\\commands\\g++\\include`
-  const includeFolder = `${home}\\.splashkit\\include`
+  const cppBuild = `"${home}\\.splashkit\\commands\\g++\\include"`
+  const includeFolder = `"${home}\\.splashkit\\include"`
   const sklibs = {
-    static: `${home}\\.splashkit\\commands\\g++\\lib`,
-    dynamic: `${home}\\.splashkit\\lib`
+    static: `"${home}\\.splashkit\\commands\\g++\\lib"`,
+    dynamic: `"${home}\\.splashkit\\lib"`
   }
 
   let flags
