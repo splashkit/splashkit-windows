@@ -18,18 +18,18 @@ execute = function (argv, callback) {
           callback()
       } else {
           if ( argv["_"][1] == "restore" ) {
-              utils.runCommands(["md lib", `ln -f -s "${skCSharpCode}" ./lib/SplashKit.cs`], function (err1, data) {
+              utils.runCommands(["if not exist lib md lib", `ln -f -s "${skCSharpCode}" ./lib/SplashKit.cs`], function (err1, data) {
                   if (err1) {
-                      callback(null, "I couldn't add in the SplashKit library... -- ${err1}")
+                      callback(null, `I couldn't add in the SplashKit library... -- ${err1}`)
                   } else {
                       callback(null, 'dotnet command ran successfully')
                   }
               })
           }
           else if ( argv["_"][1] == "new" ) {
-              utils.runCommands(["md lib", `ln -s "${skCSharpCode}" ./lib/SplashKit.cs`, `cp "${skCSharpProgram}" .`], function (err1, data) {
+              utils.runCommands(["if not exist lib md lib", `ln -s "${skCSharpCode}" ./lib/SplashKit.cs`, `cp "${skCSharpProgram}" .`], function (err1, data) {
                   if (err1) {
-                      callback(null, "I couldn't add in the SplashKit library... -- ${err1}")
+                      callback(null, `I couldn't add in the SplashKit library... -- ${err1}`)
                   } else {
                       callback(null, 'dotnet command run successfully')
                   }
