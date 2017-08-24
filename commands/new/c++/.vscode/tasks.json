@@ -2,9 +2,20 @@
     // See https://go.microsoft.com/fwlink/?LinkId=733558
     // for the documentation about the tasks.json format
     "version": "0.1.0",
-    "command": "c:\\msys64\\msys2_shell.cmd",
+    "command": "C:/msys64/usr/bin/sh.exe",
     "isShellCommand": true,
-    "args": [ "-mingw64", "-where", "${workspaceRoot}", "-lc", "\"PATH=~/.splashkit/skm-win32-ia32:~/.splashkit/lib/win64:$PATH skm clang++ -g program.cpp -o ${workspaceRootFolderName}; echo 'press enter to continue...'; read -s\""],
+    "options": {
+        "env": {
+            "MSYSTEM": "MINGW64",
+            "MSYS": "winsymlinks",
+            "CHERE_INVOKING": "1"
+        }
+    },
+    "args": 
+    [
+        "-lc"
+    ],
+    //[ "-mingw64", "-where", "${workspaceRoot}", "-lc", "\"PATH=~/.splashkit/skm-win32-ia32:~/.splashkit/lib/win64:$PATH skm clang++ -g program.cpp -o ${workspaceRootFolderName}; echo 'press enter to continue...'; read -s\""],
     "showOutput": "always",
     "problemMatcher": {
             "owner": "cpp",
@@ -20,5 +31,16 @@
                 "severity": 4,
                 "message": 5
             }
-    }
+    },
+    "suppressTaskName": true,
+    "tasks":[
+        {
+            "taskName": "Build",
+            "isBuildCommand": true,
+            "showOutput": "always",
+            "args": [
+                "skm clang++ -g *.cpp -o ${workspaceRootFolderName}"
+            ]
+        }
+    ]
 }

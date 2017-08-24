@@ -1,0 +1,85 @@
+{
+    "configurations": [
+        {
+            "name": "Mac",
+            "includePath": [
+                "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1",
+                "/usr/local/include",
+                "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/8.1.0/include",
+                "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include",
+                "/usr/include",
+                "/usr/include/machine",
+                "${workspaceRoot}",
+                "${workspaceRoot}/include/splashkit"
+            ],
+            "defines": [],
+            "intelliSenseMode": "clang-x64",
+            "browse": {
+                "path": [
+                    "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1",
+                    "/usr/local/include",
+                    "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/8.1.0/include",
+                    "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include",
+                    "/usr/include",
+                    "/usr/include/machine",
+                    "${workspaceRoot}",
+                    "${workspaceRoot}/include/splashkit"
+                ],
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": "${workspaceRoot}/.vscode/.browse.VC.db"
+            }
+        },
+        {
+            "name": "Linux",
+            "includePath": [
+                "/usr/include",
+                "/usr/local/include",
+                "${workspaceRoot}",
+                "${workspaceRoot}/include/splashkit"
+            ],
+            "defines": [],
+            "intelliSenseMode": "clang-x64",
+            "browse": {
+                "path": [
+                    "/usr/include",
+                    "/usr/local/include",
+                    "${workspaceRoot}",
+                    "${workspaceRoot}/include/splashkit"
+                ],
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": "${workspaceRoot}/.vscode/.browse.VC.db"
+            }
+        },
+        {
+            "name": "Win32",
+            "includePath": [
+                "${workspaceRoot}",
+                "${workspaceRoot}/include/splashkit",
+                "C:/msys64/mingw64/include/c++/6.2.0",
+                "C:/msys64/mingw64/include/c++/6.2.0/x86_64-w64-mingw32",
+                "C:/msys64/mingw64/x86_64-w64-mingw32/include",
+                "C:/msys64/mingw64/include"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "__cdecl=__attribute__((__cdecl__))",
+                "__GNU_C = 4"
+            ],
+            "intelliSenseMode": "clang-x64",
+            "browse": {
+                "path": [
+                    "${workspaceRoot}",
+                    "${workspaceRoot}/include/splashkit",
+                    "C:/msys64/mingw64/include/c++/6.2.0",
+                    "C:/msys64/mingw64/include/c++/6.2.0/x86_64-w64-mingw32",
+                    "C:/msys64/mingw64/x86_64-w64-mingw32/include",
+                    "C:/msys64/mingw64/include"
+                ],
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": "${workspaceRoot}/.vscode/.browse.VC.db"
+            }
+        }
+    ],
+    "version": 2
+}

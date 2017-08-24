@@ -8,7 +8,7 @@
             "program": "${workspaceRoot}/${workspaceRootFolderName}.exe",
             "args": [],
             "stopAtEntry": false,
-            "preLaunchTask": "c:\\msys64\\msys2_shell.cmd",
+            "preLaunchTask": "Build",
             "cwd": "${workspaceRoot}",
             "environment": [],
             "externalConsole": false,
