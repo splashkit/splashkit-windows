@@ -57,6 +57,8 @@
                 "${workspaceRoot}/include/splashkit",
                 "C:/msys64/mingw64/include/c++/6.2.0",
                 "C:/msys64/mingw64/include/c++/6.2.0/x86_64-w64-mingw32",
+                "C:/msys64/mingw64/include/c++/7.2.0",
+                "C:/msys64/mingw64/include/c++/7.2.0/x86_64-w64-mingw32",
                 "C:/msys64/mingw64/x86_64-w64-mingw32/include",
                 "C:/msys64/mingw64/include"
             ],
@@ -73,6 +75,8 @@
                     "${workspaceRoot}/include/splashkit",
                     "C:/msys64/mingw64/include/c++/6.2.0",
                     "C:/msys64/mingw64/include/c++/6.2.0/x86_64-w64-mingw32",
+                    "C:/msys64/mingw64/include/c++/7.2.0",
+                    "C:/msys64/mingw64/include/c++/7.2.0/x86_64-w64-mingw32",
                     "C:/msys64/mingw64/x86_64-w64-mingw32/include",
                     "C:/msys64/mingw64/include"
                 ],
