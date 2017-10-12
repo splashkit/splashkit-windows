@@ -15,7 +15,7 @@ execute = function (argv, callback) {
   
   utils.runCommandWithEnv(`dotnet ${userArgs}`, envVars, function (err, data) {
       if (err) {
-          callback()
+          callback(err)
       } else {
           if ( argv["_"][1] == "restore" ) {
               utils.runCommands(["if not exist lib md lib", `ln -f -s "${skCSharpCode}" ./lib/SplashKit.cs`], function (err1, data) {
