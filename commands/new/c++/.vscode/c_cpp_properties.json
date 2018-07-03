@@ -63,6 +63,12 @@
                 "C:/msys64/mingw64/include",
                 "C:/msys64/mingw64/include/c++/**"
             ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "__cdecl=__attribute__((__cdecl__))",
+                "__GNU_C = 4"
+            ],
             "intelliSenseMode": "clang-x64",
             "browse": {
                 "path": [
