@@ -27,7 +27,11 @@
                 ],
                 "limitSymbolsToIncludedHeaders": true,
                 "databaseFilename": "${workspaceRoot}/.vscode/.browse.VC.db"
-            }
+            },
+            "macFrameworkPath": [
+                "/System/Library/Frameworks",
+                "/Library/Frameworks"
+            ]
         },
         {
             "name": "Linux",
@@ -52,34 +56,25 @@
         },
         {
             "name": "Win32",
+            "compilerPath": "c:/msys64/mingw64/bin/g++",
             "includePath": [
                 "${workspaceRoot}",
                 "${workspaceRoot}/include/splashkit",
-                "C:/msys64/mingw64/include/c++/6.2.0",
-                "C:/msys64/mingw64/include/c++/6.2.0/x86_64-w64-mingw32",
-                "C:/msys64/mingw64/x86_64-w64-mingw32/include",
-                "C:/msys64/mingw64/include"
-            ],
-            "defines": [
-                "_DEBUG",
-                "UNICODE",
-                "__cdecl=__attribute__((__cdecl__))",
-                "__GNU_C = 4"
+                "C:/msys64/mingw64/include",
+                "C:/msys64/mingw64/include/c++/**"
             ],
             "intelliSenseMode": "clang-x64",
             "browse": {
                 "path": [
                     "${workspaceRoot}",
                     "${workspaceRoot}/include/splashkit",
-                    "C:/msys64/mingw64/include/c++/6.2.0",
-                    "C:/msys64/mingw64/include/c++/6.2.0/x86_64-w64-mingw32",
-                    "C:/msys64/mingw64/x86_64-w64-mingw32/include",
-                    "C:/msys64/mingw64/include"
+                    "C:/msys64/mingw64/include",
+                    "C:/msys64/mingw64/include/c++/**"
                 ],
                 "limitSymbolsToIncludedHeaders": true,
                 "databaseFilename": "${workspaceRoot}/.vscode/.browse.VC.db"
             }
         }
     ],
-    "version": 2
+    "version": 4
 }
