@@ -11,29 +11,28 @@
             "CHERE_INVOKING": "1"
         }
     },
-    "args": 
-    [
+    "args": [
         "-lc"
     ],
     //[ "-mingw64", "-where", "${workspaceRoot}", "-lc", "\"PATH=~/.splashkit/skm-win32-ia32:~/.splashkit/lib/win64:$PATH skm clang++ -g program.cpp -o ${workspaceRootFolderName}; echo 'press enter to continue...'; read -s\""],
     "showOutput": "always",
     "problemMatcher": {
-            "owner": "cpp",
-            "fileLocation": [
-                "relative",
-                "${workspaceRoot}"
-            ],
-            "pattern": {
-                "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
-                "file": 1,
-                "line": 2,
-                "column": 3,
-                "severity": 4,
-                "message": 5
-            }
+        "owner": "cpp",
+        "fileLocation": [
+            "relative",
+            "${workspaceRoot}"
+        ],
+        "pattern": {
+            "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+            "file": 1,
+            "line": 2,
+            "column": 3,
+            "severity": 4,
+            "message": 5
+        }
     },
     "suppressTaskName": true,
-    "tasks":[
+    "tasks": [
         {
             "taskName": "Build",
             "isBuildCommand": true,
