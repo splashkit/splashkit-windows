@@ -61,7 +61,8 @@
                 "${workspaceRoot}",
                 "${workspaceRoot}/include/splashkit",
                 "C:/msys64/mingw64/include",
-                "C:/msys64/mingw64/include/c++/**"
+                "C:/msys64/mingw64/include/c++/**",
+                "C:/msys64/mingw64/x86_64-w64-mingw32/include"
             ],
             "defines": [
                 "_DEBUG",
@@ -75,7 +76,8 @@
                     "${workspaceRoot}",
                     "${workspaceRoot}/include/splashkit",
                     "C:/msys64/mingw64/include",
-                    "C:/msys64/mingw64/include/c++/**"
+                    "C:/msys64/mingw64/include/c++/**",
+                    "C:/msys64/mingw64/x86_64-w64-mingw32/include"
                 ],
                 "limitSymbolsToIncludedHeaders": true,
                 "databaseFilename": "${workspaceRoot}/.vscode/.browse.VC.db"
