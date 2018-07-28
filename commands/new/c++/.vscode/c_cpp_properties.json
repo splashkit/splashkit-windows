@@ -66,9 +66,7 @@
             ],
             "defines": [
                 "_DEBUG",
-                "UNICODE",
-                "__cdecl=__attribute__((__cdecl__))",
-                "__GNU_C = 4"
+                "UNICODE"
             ],
             "intelliSenseMode": "clang-x64",
             "browse": {
