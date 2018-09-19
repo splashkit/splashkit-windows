@@ -6,8 +6,8 @@
 #ifndef __images_h
 #define __images_h
 
-#include "types.h"
 #include "window_manager.h"
+#include "types.h"
 #include <string>
 #include <vector>
 using std::string;
@@ -57,5 +57,6 @@ bool pixel_drawn_at_point(bitmap bmp, const point_2d &pt);
 bool pixel_drawn_at_point(bitmap bmp, double x, double y);
 bool pixel_drawn_at_point(bitmap bmp, int cell, const point_2d &pt);
 bool pixel_drawn_at_point(bitmap bmp, int cell, double x, double y);
+void setup_collision_mask(bitmap bmp);
 
 #endif /* __images_h */
